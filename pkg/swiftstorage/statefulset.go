@@ -232,6 +232,7 @@ func StatefulSet(
 					Annotations: annotations,
 				},
 				Spec: corev1.PodSpec{
+					NodeSelector:       swiftstorage.Spec.NodeSelector,
 					ServiceAccountName: swift.ServiceAccount,
 					SecurityContext: &corev1.PodSecurityContext{
 						FSGroup:             &user,

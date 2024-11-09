@@ -60,6 +60,7 @@ func GetRingJob(instance *swiftv1beta1.SwiftRing, labels map[string]string) *bat
 		Spec: batchv1.JobSpec{
 			Template: corev1.PodTemplateSpec{
 				Spec: corev1.PodSpec{
+					NodeSelector:       instance.Spec.NodeSelector,
 					RestartPolicy:      "OnFailure",
 					ServiceAccountName: swift.ServiceAccount,
 					SecurityContext: &corev1.PodSecurityContext{

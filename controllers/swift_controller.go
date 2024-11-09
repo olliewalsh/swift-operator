@@ -424,7 +424,12 @@ func (r *SwiftReconciler) ringCreateOrUpdate(ctx context.Context, instance *swif
 			PartPower:    instance.Spec.SwiftRing.PartPower,
 			MinPartHours: instance.Spec.SwiftRing.MinPartHours,
 			TLS:          instance.Spec.SwiftProxy.TLS.Ca,
+			NodeSelector: instance.Spec.SwiftRing.NodeSelector,
 		},
+	}
+
+	if swiftRingSpec.SwiftRingSpecCore.NodeSelector == nil {
+		swiftRingSpec.SwiftRingSpecCore.NodeSelector = instance.Spec.NodeSelector
 	}
 
 	deployment := &swiftv1.SwiftRing{
@@ -462,7 +467,12 @@ func (r *SwiftReconciler) storageCreateOrUpdate(ctx context.Context, instance *s
 			MemcachedInstance:       instance.Spec.MemcachedInstance,
 			ContainerSharderEnabled: instance.Spec.SwiftStorage.ContainerSharderEnabled,
 			DefaultConfigOverwrite:  instance.Spec.SwiftStorage.DefaultConfigOverwrite,
+			NodeSelector:            instance.Spec.SwiftStorage.NodeSelector,
 		},
+	}
+
+	if swiftStorageSpec.SwiftStorageSpecCore.NodeSelector == nil {
+		swiftStorageSpec.SwiftStorageSpecCore.NodeSelector = instance.Spec.NodeSelector
 	}
 
 	deployment := &swiftv1.SwiftStorage{
@@ -502,7 +512,12 @@ func (r *SwiftReconciler) proxyCreateOrUpdate(ctx context.Context, instance *swi
 			EncryptionEnabled:      instance.Spec.SwiftProxy.EncryptionEnabled,
 			RabbitMqClusterName:    instance.Spec.SwiftProxy.RabbitMqClusterName,
 			CeilometerEnabled:      instance.Spec.SwiftProxy.CeilometerEnabled,
+			NodeSelector:           instance.Spec.SwiftProxy.NodeSelector,
 		},
+	}
+
+	if swiftProxySpec.SwiftProxySpecCore.NodeSelector == nil {
+		swiftProxySpec.SwiftProxySpecCore.NodeSelector = instance.Spec.NodeSelector
 	}
 
 	deployment := &swiftv1.SwiftProxy{

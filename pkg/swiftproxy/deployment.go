@@ -122,6 +122,7 @@ func Deployment(
 					Annotations: annotations,
 				},
 				Spec: corev1.PodSpec{
+					NodeSelector:       instance.Spec.NodeSelector,
 					ServiceAccountName: swift.ServiceAccount,
 					SecurityContext: &corev1.PodSecurityContext{
 						RunAsNonRoot: &trueVal,
